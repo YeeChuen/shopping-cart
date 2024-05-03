@@ -16,7 +16,8 @@ h1 {
     margin: 15px;
     outline: none;
     border-radius: 8px;
-    border: 2px solid rgb(191, 191, 191);
+    border: 0px solid rgb(191, 191, 191);
+    background-color: rgb(238, 238, 238);
 }
 
 .inventory-container,

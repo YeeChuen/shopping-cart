@@ -125,6 +125,11 @@ const View = (() => {
   const ulCartElem = document.querySelector(".cart__list-container");
   const checkoutBtn = document.querySelector(".checkout-btn");
 
+  // attempt on pagination
+  const itemsPerPage = 5;
+  let currentIndex = 0;
+  let pageNum = 0;
+
   // View helper functions
   const createElement = (tag, className, id, text) => {
     const elem = document.createElement(tag);
@@ -187,8 +192,15 @@ const View = (() => {
     return divElem;
   }
 
+
   // implement your logic for View, View functions
   const renderInventory = (items) => {
+    const totalItemCount = items.length;
+    pageNum = Math.ceil(totalItemCount / itemsPerPage);
+    console.log(totalItemCount);
+    console.log(pageNum);
+    
+
     ulInventoryElem.innerHTML = "";
     items.forEach((e, i) => {
       ulInventoryElem.appendChild(createInventoryItem(e.content, e.number, e.id));
