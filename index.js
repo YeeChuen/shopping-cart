@@ -172,14 +172,6 @@ const View = (() => {
 
   
   const createCartItem = (itemName, itemNumber, itemId) => {
-    /**
-     * 
-              <div class = "cart__item-container">
-                <span class = "cart__item-name">apple x </span>
-                <span class = "cart__item-number">1</span>
-                <button class = "cart__button-delete">delete</button>
-              </div>
-     */
     const divElem = createElement("div", "cart__item-container", itemId, undefined);
     const spanElem1 = createElement("span", "cart__item-name", undefined, itemName);
     divElem.appendChild(spanElem1);
@@ -192,15 +184,27 @@ const View = (() => {
     return divElem;
   }
 
+  // attempt to implement
+  const renderPaginationButtons = () =>{
+    const divElem = createElement("div", "pagination__container", itemId, undefined);
+    
+    const totalItemCount = data.length;
+    pageNum = Math.ceil(totalItemCount / itemsPerPage);
+
+    const pageButtonContainerEl = document.querySelector(".pagination__pages");
+      for (let i = 0; i < pageNum; i++) {
+        const button = createElement("button", undefined, undefined, undefined);
+        button.addEventListener("click", () => {
+          renderPage(i);
+        });
+        button.innerHTML = i + 1;
+        pageButtonContainerEl.appendChild(button);
+      }    
+    return divElem;
+  }
 
   // implement your logic for View, View functions
   const renderInventory = (items) => {
-    const totalItemCount = items.length;
-    pageNum = Math.ceil(totalItemCount / itemsPerPage);
-    console.log(totalItemCount);
-    console.log(pageNum);
-    
-
     ulInventoryElem.innerHTML = "";
     items.forEach((e, i) => {
       ulInventoryElem.appendChild(createInventoryItem(e.content, e.number, e.id));
