@@ -1,24 +1,125 @@
 * {
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     font-size: 100%;
-  }
+    text-align:center;
+}
+
+h1 {
+    font-size: 3rem;
+}
 
 .shopping-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 10px;
-  }
+    margin: 15px;
+    outline: none;
+    border-radius: 8px;
+    border: 2px solid rgb(191, 191, 191);
+}
 
 .inventory-container,
 .cart-container {
-  margin: 0px 15px 15px 15px;
-  flex-grow: 1;
-  padding: 12px;
-  outline: none;
-  border-radius: 8px;
-  border: 2px solid rgb(191, 191, 191);
-  width: 40%;
+    margin: 15px;
+    flex-grow: 1;
+    padding: 12px;
+    outline: none;
+    border-radius: 8px;
+    width: 40%;
+}
+
+.cart__list-container,
+.inventory__list-continer {
+    outline: none;
+    border-radius: 8px;
+}
+
+.cart__item-container, 
+.inventory__item-container {
+    margin: 10px;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    outline: none;
+    border-radius: 8px;
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* each item styling */
+.inventory__item-container span,
+.inventory__item-container button {
+    margin: 0px 5px 0px 5px;
+    width: 2rem; 
+    padding: 6px;
+}
+.inventory__item-container .inventory__item-name {
+    flex: 1;
+    width: 30%;
+}
+
+.inventory__item-container .inventory__button-subtract,
+.inventory__item-container .inventory__button-add,
+.inventory__item-container .inventory__button-addcart{
+    outline: none;
+    border-radius: 8px;
+    border: 0px solid rgb(191, 191, 191);
+    color: white;
+}
+.inventory__item-container .inventory__button-subtract{
+    background-color: rgb(138, 0, 0);
+}
+.inventory__item-container .inventory__button-add{
+    background-color: rgb(0, 135, 0);
+}
+.inventory__item-container .inventory__button-addcart{
+    background-color: rgb(0, 0, 142);
+    width: 6rem;
+}
+
+/* each item styling (in cart) */
+.cart__item-container span,
+.cart__item-container button {
+    outline: none;
+    border-radius: 8px;
+    border: 2px solid rgb(191, 191, 191);
+    margin: 0px 5px 0px 5px;
+    width: 1rem; 
+    padding: 6px;
+}
+.cart__item-container .cart__item-name {
+    flex: 1;
+    width: 30%;
+}
+.cart__item-container .cart__button-delete{
+    background-color: rgb(0, 0, 142);
+    outline: none;
+    border-radius: 8px;
+    border: 0px solid rgb(191, 191, 191);
+    color: white;
+    width: 6rem;
+}
+
+/* checkout button */
+.cart-wrapper,
+.inventory-wrapper {
+    outline: none;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-btn {
+    margin: 10px;
+    padding: 12px;
+
+    outline: none;
+    border-radius: 8px;
+    border: 0px solid rgb(191, 191, 191);
+    
+    background-color: rgb(0, 0, 142);
+    color: white;
+
+    flex-grow: 1;
 }
