@@ -9,15 +9,32 @@
   </head>
   <body>
     <div id="app">
-      <div class="inventory-container">
-        <h1>Inventory</h1>
-        <ul></ul>
-      </div>
-      <div class="cart-container">
-        <h1>Shopping Cart</h1>
-        <div class="cart-wrapper">
-          <ul></ul>
-          <button class="checkout-btn">checkout</button>
+      <div class = "shopping-container">
+        <div class="inventory-container">
+          <h1>Inventory</h1>
+          <ul class = "inventory__list-container">
+            <div class = "inventory__item-container">
+              <span class = "inventory__item-name">apple</span>
+              <button class = "inventory__button-subtract">-</button>
+              <span class = "inventory__item-number">1</span>
+              <button class = "inventory__button-add">+</button>
+              <button class = "inventory__button-addcart">add to cart</button>
+            </div>
+          </ul>
+        </div>
+
+        <div class="cart-container">
+          <h1>Shopping Cart</h1>
+          <div class="cart-wrapper">
+            <ul class="cart-list">
+              <div class = "cart_item-container">
+                <span class = "cart_item-name">apple x </span>
+                <span class = "cart_item-number">1</span>
+                <button class = "cart_button-delete">delete</button>
+              </div>
+            </ul>
+            <button class="checkout-btn">checkout</button>
+          </div>
         </div>
       </div>
     </div>
