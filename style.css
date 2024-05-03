@@ -82,9 +82,6 @@ h1 {
 /* each item styling (in cart) */
 .cart__item-container span,
 .cart__item-container button {
-    outline: none;
-    border-radius: 8px;
-    border: 2px solid rgb(191, 191, 191);
     margin: 0px 5px 0px 5px;
     width: 1rem; 
     padding: 6px;
