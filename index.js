@@ -1,6 +1,10 @@
-const API = (() => {
-  const URL = "http://localhost:3000";
+// attempt on pagination
+const itemsPerPage = 5;
 
+const URL = "http://localhost:3000";
+
+
+const API = (() => {
   const itemURL = `${URL}/inventory`;
   const cartURL = `${URL}/cart`;
 
@@ -125,11 +129,6 @@ const View = (() => {
   const ulCartElem = document.querySelector(".cart__list-container");
   const checkoutBtn = document.querySelector(".checkout-btn");
 
-  // attempt on pagination
-  const itemsPerPage = 5;
-  let currentIndex = 0;
-  let pageNum = 0;
-
   // View helper functions
   const createElement = (tag, className, id, text) => {
     const elem = document.createElement(tag);
@@ -184,32 +183,60 @@ const View = (() => {
     return divElem;
   }
 
-  // attempt to implement
-  const renderPaginationButtons = () =>{
-    const divElem = createElement("div", "pagination__container", itemId, undefined);
-    
-    const totalItemCount = data.length;
-    pageNum = Math.ceil(totalItemCount / itemsPerPage);
+  // attempt to implement pagination
+  // pagination container
+  const divPaginationContainer = document.querySelector(".pagination__container");
 
-    const pageButtonContainerEl = document.querySelector(".pagination__pages");
-      for (let i = 0; i < pageNum; i++) {
-        const button = createElement("button", undefined, undefined, undefined);
-        button.addEventListener("click", () => {
-          renderPage(i);
-        });
-        button.innerHTML = i + 1;
-        pageButtonContainerEl.appendChild(button);
-      }    
-    return divElem;
+  const renderPaginationButtons = (items) =>{
+    const divElem = createElement("div", "pagination__container", undefined, undefined);
+    const prevButton = createElement("button", "pagination__prev-btn", undefined, undefined);
+    prevButton.appendChild(document.createTextNode("Prev"));
+    divElem.appendChild(prevButton);
+
+    const pagesElem = createElement("span", "pagination__pages", undefined, undefined);
+    divElem.appendChild(pagesElem);
+
+    const nextButton = createElement("button", "pagination__next-btn", undefined, undefined);
+    nextButton.appendChild(document.createTextNode("Next"));
+    divElem.appendChild(nextButton);
+
+    
+    const totalItemCount = items.length;
+    const pageNum = Math.ceil(totalItemCount / itemsPerPage);
+
+    for (let i = 0; i < pageNum; i++) {
+      const button = createElement("button", "pagination__pages-btn", "p-" + (i+1).toString(), undefined); // <-- create button for pages
+      button.appendChild(document.createTextNode((i + 1).toString()));
+      pagesElem.appendChild(button);
+    }    
+
+    return divElem
+  }
+  
+  const isPaginationNextButton = (className) => {
+    return className === "pagination__next-btn";
+  }
+  const isPaginationPrevButton = (className) => {
+    return className === "pagination__prev-btn";
+  }
+  const isPaginationPagesButton = (className) => {
+    return className === "pagination__pages-btn";
   }
 
   // implement your logic for View, View functions
-  const renderInventory = (items) => {
+  const renderInventory = (items, currentPage) => {
     ulInventoryElem.innerHTML = "";
     items.forEach((e, i) => {
-      ulInventoryElem.appendChild(createInventoryItem(e.content, e.number, e.id));
+      if ((currentPage - 1) * itemsPerPage <= i && i < currentPage * itemsPerPage) {
+        ulInventoryElem.appendChild(createInventoryItem(e.content, e.number, e.id));
+      }
     })
+    // added test pagination below
+    divPaginationContainer.innerHTML = "";
+    const pagination = renderPaginationButtons(items)
+    divPaginationContainer.appendChild(pagination);
   }
+
   const renderCart = (items) => {
     ulCartElem.innerHTML = "";
     items.forEach((e, i) => {
@@ -228,12 +255,19 @@ const View = (() => {
     isInventoryAddCartBtn,
     isCartDeleteBtn,
     checkoutBtn,
+    divPaginationContainer,
+    isPaginationNextButton,
+    isPaginationPrevButton,
+    isPaginationPagesButton
   };
 })();
 
 const Controller = ((model, view) => {
   // implement your logic for Controller
   const state = new model.State();
+
+  // pagination
+  let currentPage = 1; // itemsPerPage
 
   const init = () => {
     model.getInventory().then((data) => {
@@ -337,9 +371,34 @@ const Controller = ((model, view) => {
     })
   };
 
+  const handlePagination = () => {
+    view.divPaginationContainer.addEventListener("click", (event) => {
+      const pageNum = Math.ceil(state.inventory.length / itemsPerPage);
+      if (view.isPaginationNextButton(event.target.classList[0]) && currentPage < pageNum) {
+        currentPage++;
+        const temp = [...state.inventory];
+        state.inventory = temp;
+      }
+      
+      if (view.isPaginationPrevButton(event.target.classList[0]) && currentPage > 1) {
+        currentPage--;
+        const temp = [...state.inventory];
+        state.inventory = temp;
+
+      }
+      
+      if (view.isPaginationPagesButton(event.target.classList[0])) {
+        currentPage = parseInt(event.target.id.split("-")[1]);
+        const temp = [...state.inventory];
+        state.inventory = temp;
+
+      }
+    })
+  }
+
   const bootstrap = () => {
     state.subscribe(() => {
-      view.renderInventory(state.inventory);
+      view.renderInventory(state.inventory, currentPage);
       view.renderCart(state.cart);
     });
 
@@ -348,7 +407,7 @@ const Controller = ((model, view) => {
     handleAddToCart();
     handleDelete();
     handleCheckout();
-    
+    handlePagination();
   };
 
   return {
