@@ -69,14 +69,26 @@ h1 {
     color: white;
 }
 .inventory__item-container .inventory__button-subtract{
-    background-color: rgb(138, 0, 0);
+    background-color: rgba(138, 0, 0);
+}
+.inventory__item-container .inventory__button-subtract:hover{
+    background-color: rgba(138, 0, 0, 0.8);
+    cursor: pointer;
 }
 .inventory__item-container .inventory__button-add{
-    background-color: rgb(0, 135, 0);
+    background-color: rgba(0, 135, 0);
+}
+.inventory__item-container .inventory__button-add:hover{
+    background-color: rgba(0, 135, 0, 0.8);
+    cursor: pointer;
 }
 .inventory__item-container .inventory__button-addcart{
-    background-color: rgb(0, 0, 142);
+    background-color: rgba(0, 0, 142);
     width: 6rem;
+}
+.inventory__item-container .inventory__button-addcart:hover{
+    background-color: rgba(0, 0, 142, 0.8);
+    cursor: pointer;
 }
 
 /* each item styling (in cart) */
@@ -97,6 +109,10 @@ h1 {
     border: 0px solid rgb(191, 191, 191);
     color: white;
     width: 6rem;
+}
+.cart__button-delete:hover {
+    background-color: rgb(0, 0, 142, 0.8);
+    cursor: pointer;
 }
 
 /* checkout button */
@@ -120,4 +136,26 @@ h1 {
     color: white;
 
     flex-grow: 1;
+}
+.checkout-btn:hover {
+    background-color: rgba(35, 35, 35, 0.8);
+    cursor: pointer;
+}
+
+/* pagination button styling*/
+.pagination__container button{
+    padding: 8px;
+    margin: 0px 8px 0px 8px;
+    
+    outline: none;
+    border-radius: 8px;
+    border: 0px solid rgba(0, 0, 0, 0.8);
+
+    background-color: rgb(0, 0, 0, 0.3);
+    color: white;
+}
+.pagination__container button:hover{
+    background-color: rgb(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255, 0.8);
+    cursor: pointer;
 }

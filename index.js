@@ -368,6 +368,17 @@ const Controller = ((model, view) => {
       model.checkout().then(() => {
         state.cart = [];
       });
+
+      /**
+       * remove innerHTML in the cart
+       * 
+       * add the HTML loader
+       * 
+       * await for the promise
+       * 
+       * remove the HTML loader
+       * 
+       */
     })
   };
 
